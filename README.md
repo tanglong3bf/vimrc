@@ -1,2 +1,2 @@
 # vimrc
-用于WSL2上的vimrc
+使用vim-plug管理插件
