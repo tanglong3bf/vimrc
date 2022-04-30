@@ -53,6 +53,9 @@ Plug 'junegunn/fzf', {'do': 'yes \| ./install'}
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree' " 侧边栏文件列表
 Plug 'frazrepo/vim-rainbow' " 括号配对高亮显示
+Plug 'skywind3000/asyncrun.vim' " 异步支持
+Plug 'posva/vim-vue' " vue语法高亮
+Plug 'scrooloose/syntastic' " 语法检查
 call plug#end()
 " }}}
 
@@ -61,7 +64,7 @@ set background=dark
 
 let g:markdown_fenced_languages = [
   \'cpp'
-  \]
+\]
 
 " 代码缩进 {{{
 au FileType c,cpp,objc  setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2 cinoptions=:0,g0,(0,w1
@@ -76,28 +79,6 @@ au FileType vim         setlocal foldmethod=marker
 au FileType c,cpp       setlocal foldmethod=syntax
 au FileType python      setlocal foldmethod=indent
 " }}}
-
-
-if !has('patch-8.0.210')
-  "  进入插入模式时启用括号粘贴模式
-  let &t_SI .= "\<Esc>[?2004h"
-  " 退出插入模式时停用括号粘贴模式
-  let &t_EI .= "\<Esc>[?2004l"
-  " 见到 <Esc>[200~ 就调用 XTermPasteBegin
-  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
-
-  function! XTermPasteBegin()
-    " 设置使用 <Esc>[201~ 关闭粘贴模式
-    set pastetoggle=<Esc>[201~
-    " 开启粘贴模式
-    set paste
-    return ""
-  endfunction
-endif
-
-if v:version >= 800
-  packadd! editexisting
-endif
 
 " coc {{{
 let g:coc_global_extensions = [
@@ -221,9 +202,46 @@ inoremap <F9> <C-O>:TagbarToggle<CR>
 " }}}
 
 " nerdtree {{{
-nmap <F3> <Cmd>NERDTreeToggle<CR>
+nmap <F3> :NERDTreeToggle<CR>
 let g:NERDTreeIgnore = ['build']
 " }}}
 
 " rainbow
 au BufRead * :RainbowLoad
+
+" 和 asyncrun 一起用的异步 make 命令
+command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+
+let g:asyncrun_open = 10
+
+" 映射按键来快速启停构建
+nnoremap <F5>  :if g:asyncrun_status != 'running'<bar>
+      \if &modifiable<bar>
+      \update<bar>
+      \endif<bar>
+      \exec 'Make'<bar>
+      \else<bar>
+      \AsyncStop<bar>
+      \endif<CR>
+nnoremap <F6> :Make run<CR>
+packadd termdebug
+nnoremap <F7> :Termdebug<CR> <C-W>j<C-W>j<C-W>L<C-W>
+
+" 用于 quickfix、标签和文件跳转的键映射
+nmap <F11>   :cn<CR>
+nmap <F12>   :cp<CR>
+nmap <M-F11> :copen<CR>
+nmap <M-F12> :cclose<CR>
+nmap <C-F11> :tn<CR>
+nmap <C-F12> :tp<CR>
+nmap <S-F11> :n<CR>
+nmap <S-F12> :prev<CR>
+
+set makeprg=make\ -j8
+
+vmap "+y : !/mnt/c/Windows/System32/clip.exe<cr>u
+
+" vim-vue {{{
+autocmd FileType vue syntax sync fromstart
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.typescript.css.scss
+" }}}
