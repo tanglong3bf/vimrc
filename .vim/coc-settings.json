@@ -1,45 +1,9 @@
 {
   "coc.preferences.extensionUpdateCheck": "daily",
   "suggest.noselect": true,
-  "suggest.completionItemKindLabels": {
-    "class": "\uf0e8",
-    "color": "\ue22b",
-    "constant": "\uf8fe",
-    "default": "\uf29c",
-    "enum": "\uf435",
-    "enumMember": "\uf02b",
-    "event": "\ufacd",
-    "field": "\uf93d",
-    "folder": "\uf115",
-    "function": "\u0192",
-    "interface": "\uf417",
-    "keyword": "\uf1de",
-    "method": "\uf6a6",
-    "module": "\uf40d",
-    "operator": "\uf915",
-    "property": "\ue624",
-    "snippet": "\ue60b",
-    "struct": "\ufb44",
-    "text": "\ue612",
-    "typeParameter": "\uf728",
-    "unit": "\uf475",
-    "value": "\uf89f",
-    "variable": "\ue71b"
-  },
-  "diagnostic.errorSign": "\uf767",
-  "diagnostic.warningSign": "\uf071",
-  "diagnostic.infoSign": "\uf129",
-  "diagnostic.hintSign": "\uf864",
-  "diagnostic.displayByAle": false,
-  "diagnostic.refreshOnInsertMode": false,
-  "diagnostic.checkCurrentLine": true,
-  "diagnostic.virtualTextPrefix": "\uf432",
-  "diagnostic.virtualText": true,
-  "codeLens.enable": true,
   "snippets.ultisnips.directories": [
     "UltiSnips",
     "$HOME/.vim/UltiSnips",
     "$HOME/.vim/plugged/vim-snippets/UltiSnips"
-  ],
-  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/13.0.0/clangd_13.0.0/bin/clangd"
+  ]
 }

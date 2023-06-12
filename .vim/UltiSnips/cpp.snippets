@@ -1,0 +1,15 @@
+snippet jo
+	namespace drogon
+	{
+	template <>
+	inline ${1:Json::Value} fromRequest(const HttpRequest &req)
+	{
+		auto json = req.getJsonObject();
+		$1 value;
+		if (json)
+		{
+			${0}
+		}
+		return value;
+	}
+	}
