@@ -1,9 +1,25 @@
 {
+  "languageserver": {
+    "python": {
+      "command": "jedi-language-server",
+      "filetypes": ["python"]
+    },
+    "clangd": {
+      "command": "clangd",
+      "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
+      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
+    }
+  },
   "coc.preferences.extensionUpdateCheck": "daily",
   "suggest.noselect": true,
+  "suggest.enablePreselect": false,
+  "list.source.diagnostics.includeCode": true,
+  "snippets.ultisnips.pythonPrompt": false,
+  "suggest.detailField": "preview",
   "snippets.ultisnips.directories": [
     "UltiSnips",
-    "$HOME/.vim/UltiSnips",
-    "$HOME/.vim/plugged/vim-snippets/UltiSnips"
-  ]
+    "$HOME/.vim/UltiSnips/",
+    "$HOME/.vim/plugged/vim-snippets/UltiSnips/"
+  ],
+  "list.source.clang_format_style_options.defaultAction": null
 }

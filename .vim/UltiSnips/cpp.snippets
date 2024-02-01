@@ -1,15 +1,69 @@
 snippet jo
-	namespace drogon
-	{
-	template <>
-	inline ${1:Json::Value} fromRequest(const HttpRequest &req)
-	{
-		auto json = req.getJsonObject();
-		$1 value;
-		if (json)
-		{
-			${0}
-		}
-		return value;
+namespace drogon {
+template <>
+inline ${1:Json::Value} fromRequest(const HttpRequest &req) {
+	auto json = req.getJsonObject();
+	$1 value;
+	if (json) {
+		${0}
 	}
-	}
+	return value;
+}
+}
+endsnippet
+
+snippet resp
+auto resp = drogon::HttpResponse::newHttpResponse();
+resp.set
+callback(resp);
+endsnippet
+
+snippet jresp
+Json::Value json;
+auto resp = drogon::HttpResponse::newHttpJsonResponse(json);
+callback(resp);
+endsnippet
+
+snippet gp
+auto ${2:value} = req->getParameter("${1:key}");
+endsnippet
+
+snippet lep
+LOG_ERROR << "$1: " << ${1: value};
+endsnippet
+
+snippet lwp
+LOG_WARN << "$1: " << ${1: value};
+endsnippet
+
+snippet lip
+LOG_INFO << "$1: " << ${1: value};
+endsnippet
+
+snippet ldp
+LOG_DEBUG << "$1: " << ${1: value};
+endsnippet
+
+snippet ltp
+LOG_TRACE << "$1: " << ${1: value};
+endsnippet
+
+snippet le
+LOG_ERROR << ${1: value};
+endsnippet
+
+snippet lw
+LOG_WARN << ${1: value};
+endsnippet
+
+snippet li
+LOG_INFO << ${1: value};
+endsnippet
+
+snippet ld
+LOG_DEBUG << ${1: value};
+endsnippet
+
+snippet lt
+LOG_TRACE << ${1: value};
+endsnippet
