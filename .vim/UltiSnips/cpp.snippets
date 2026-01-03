@@ -1,12 +1,14 @@
-snippet jo
+snippet fr
 namespace drogon {
 template <>
 inline ${1:Json::Value} fromRequest(const HttpRequest &req) {
-	auto json = req.getJsonObject();
-	$1 value;
-	if (json) {
-		${0}
+	auto jsonPtr = req.getJsonObject();
+	if (jsonPtr == nullptr) {
+		${2:throw std::invalid_argument("不支持的请求体格式，请使用application/json");}
 	}
+	auto &json = *jsonPtr;
+	$1 value;
+	value.setByJson(json);
 	return value;
 }
 }
